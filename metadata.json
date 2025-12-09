@@ -1,0 +1,5 @@
+{
+  "name": "TechUp Labs - Kinetic Glass",
+  "description": "A high-performance, motion-led redesign of the TechUp Labs website featuring glassmorphism aesthetics, wobbly micro-interactions, and fluid kinetic animations using React, Tailwind, and Framer Motion.",
+  "requestFramePermissions": []
+}
