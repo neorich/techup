@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring, useVelocity, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import MarqueeStrip from './MarqueeStrip';
@@ -20,7 +20,7 @@ const VelocityText: React.FC<VelocityTextProps> = ({ children, baseVelocity = 10
   const x = useTransform(baseX, (v) => `${v}%`);
 
   const directionFactor = useRef<number>(1);
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
     
     if (velocityFactor.get() < 0) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const ScrambleText = ({ text, className = "" }: { text: string, className?: string }) => {
@@ -9,7 +9,7 @@ const ScrambleText = ({ text, className = "" }: { text: string, className?: stri
         let iterations = 0;
         const interval = setInterval(() => {
             setDisplayText(prev => 
-                prev.split("").map((letter, index) => {
+                prev.split("").map((_, index) => {
                     if (index < iterations) {
                         return text[index];
                     }
