@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useVelocity, useAnimationFr
 import { ArrowDown } from 'lucide-react';
 import MarqueeStrip from './MarqueeStrip';
 import { useNav } from '../contexts/NavigationContext';
+import ScrambleText from './ScrambleText';
 
 interface VelocityTextProps {
   children?: React.ReactNode;
@@ -84,54 +85,12 @@ const MagneticButton = ({ children, variant = 'primary' }: { children?: React.Re
     )
 }
 
-// Scramble / Decode Text Effect
-const ScrambleText = ({ text, className = "" }: { text: string, className?: string }) => {
-    const [displayText, setDisplayText] = useState(text);
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*";
-    
-    useEffect(() => {
-        let iterations = 0;
-        const interval = setInterval(() => {
-            setDisplayText(prev => 
-                prev.split("").map((letter, index) => {
-                    if (index < iterations) {
-                        return text[index];
-                    }
-                    return chars[Math.floor(Math.random() * chars.length)];
-                }).join("")
-            );
-            
-            if (iterations >= text.length) {
-                clearInterval(interval);
-            }
-            
-            iterations += 1/3; // Speed of decoding
-        }, 30);
-        
-        return () => clearInterval(interval);
-    }, [text]);
-
-    return (
-        <motion.span 
-            className={`inline-block ${className}`}
-            whileHover={{ scale: 1.02 }}
-            onHoverStart={() => {
-                 // Re-trigger scramble on hover (simple hack: reset state logic could be here if needed, 
-                 // but for now just a scale bump is enough interaction)
-            }}
-        >
-            {displayText}
-        </motion.span>
-    );
-}
-
 const Hero: React.FC = () => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
   const scale = useTransform(scrollY, [0, 500], [1, 0.9]);
-  // Removed opacity fade to keep text readable on scroll
-
+  
   return (
     <section className="relative min-h-screen flex flex-col justify-center pt-24 overflow-hidden">
       
